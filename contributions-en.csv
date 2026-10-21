@@ -11,3 +11,4 @@ E (Christophe),Batch openrouter:dots-studio/dots-3-note-preview:free (20 cells),
 A (Robin),Step 3 rows for gpt-oss-120b (comparison and summary),model-question-comparison-en.csv; five-model-summary-en.csv,F (Pierre-Louis) against traces-A.csv,2026-10-21
 F (Pierre-Louis),Trace merge and checks; run counting sheet,traces/merge_traces.py; traces-td1.csv; traces-td1.jsonl; traces/run-log-td1.csv,,2026-10-21
 F (Pierre-Louis),Step 3 rows and failure causes for models B-E; summary rows B-E; pivot view,model-question-comparison-en.csv; five-model-summary-en.csv; results-pivot-td1.md,,2026-10-21
+F (Pierre-Louis),Review of comparison causes and summary rows (G task): failing queries re-executed,reports/td1-review.md; model-question-comparison-en.csv,,2026-10-21

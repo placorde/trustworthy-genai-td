@@ -1,6 +1,6 @@
 # TD1 report --- compare
 
-Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
+Sub-group 5. Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
 repository; all trace rows are of nature `real` (no replayed or simulated row was used).
 
 ## What we attempted and what we completed
@@ -79,8 +79,9 @@ case the two models reach the same value by different wrong SQL.
   from the traces.
 - References C13-C20 have no cross-check file from a member in the repository; they rest on the pure-Python
   recomputation and the instructor's confirmation against the answer key.
-- The causes for models B-E were drafted with coding assistance (declared in `prompts-en.md`); G (Florentin) checks them
-  against the returned SQL before the hand-in commit.
+- The causes for models B-E were drafted with coding assistance (declared in `prompts-en.md`) and checked by
+  re-executing every failing query and listing the customers it keeps
+  ([`td1-review.md`](td1-review.md)): all 24 values reproduced, causes confirmed, two made more precise.
 
 ## Decisions, limits and uncertainty
 
@@ -114,7 +115,7 @@ retry and fingerprint, a wrong answer versus a failed access) is gathered with f
 | D, Matéo | Batch Qwen 3.8 27B (Groq) |
 | E, Christophe | Batch Dots 3 Note Preview (OpenRouter) |
 | F + H, Pierre-Louis | Reference queries; validation with the instructor; run coordination and counting; trace merge and checks; comparison rows and causes B-E; summary rows B-E; repository organisation |
-| G, Florentin | Review of the five-model summary and comparison; pivot for the plenary |
+| G, Florentin | Planned: review of the five-model summary and comparison; the review was carried out by F ([`td1-review.md`](td1-review.md)) |
 
 Details and cross-checkers: [`contributions-en.csv`](../contributions-en.csv).
 
