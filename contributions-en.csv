@@ -1,3 +1,13 @@
 member,work_item,file_and_location,cross_checked_by,date
-A (Robin),Independent cross-check of references C01-C04,references/crosscheck-C01-C04.md,,2026-10-21
-C (Thomas),Independent cross-check of references C09-C12,references/crosscheck-C09-C12.md,,2026-10-21
+F (Pierre-Louis),Reference queries C01-C20 and CSV cross-check script,reference-td1.csv; references/compute_references.py,"A Robin (C01-C04), B Raphaël (C05-C08), C Thomas (C09-C12); instructor answer key (C01-C20)",2026-10-21
+A (Robin),Independent cross-check of references C01-C04,references/crosscheck-C01-C04.md,F (Pierre-Louis),2026-10-21
+B (Raphaël),Independent cross-check of references C05-C08,references/refs_raph.py; references/check_raph.py; references/refs-raph.csv,F (Pierre-Louis),2026-10-21
+C (Thomas),Independent cross-check of references C09-C12,references/crosscheck-C09-C12.md,F (Pierre-Louis),2026-10-21
+A (Robin),Batch groq:openai/gpt-oss-120b (20 cells),traces/raw/traces-A.csv; traces/raw/state-A.jsonl,F (Pierre-Louis) via traces/merge_traces.py,2026-10-21
+B (Raphaël),Batch groq:openai/gpt-oss-20b (20 cells),traces/raw/traces-B.csv; traces/raw/state-B.jsonl,F (Pierre-Louis) via traces/merge_traces.py,2026-10-21
+C (Thomas),Batch openrouter:cohere/north-mini-code:free (20 cells),traces/raw/traces-C.csv; traces/raw/state-C.jsonl,F (Pierre-Louis) via traces/merge_traces.py,2026-10-21
+D (Matéo),Batch groq:qwen/qwen3.8-27b (20 cells),traces/raw/traces-D.csv; traces/raw/state-D.jsonl,F (Pierre-Louis) via traces/merge_traces.py,2026-10-21
+E (Christophe),Batch openrouter:dots-studio/dots-3-note-preview:free (20 cells),traces/raw/traces-E.csv; traces/raw/state-E.jsonl,F (Pierre-Louis) via traces/merge_traces.py,2026-10-21
+A (Robin),Step 3 rows for gpt-oss-120b (comparison and summary),model-question-comparison-en.csv; five-model-summary-en.csv,F (Pierre-Louis) against traces-A.csv,2026-10-21
+F (Pierre-Louis),Trace merge and checks; run counting sheet,traces/merge_traces.py; traces-td1.csv; traces-td1.jsonl; traces/run-log-td1.csv,,2026-10-21
+F (Pierre-Louis),Step 3 rows and failure causes for models B-E; summary rows B-E; pivot view,model-question-comparison-en.csv; five-model-summary-en.csv; results-pivot-td1.md,,2026-10-21
