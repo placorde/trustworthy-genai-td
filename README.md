@@ -3,37 +3,62 @@
 ESILV, Next-Generation AI module (Data & AI major, year 4). Shared repository for one sub-group, kept
 public and read-accessible without sign-in from TD1 through TD3.
 
-## Sub-group and members
+## Sub-group and members (TD1 roles)
 
-<!-- TODO: fill in before the first hand-in -->
-- Member A --- role (e.g. Groq: openai/gpt-oss-120b)
-- Member B --- role (e.g. Groq: openai/gpt-oss-20b)
-- Member C --- role (e.g. OpenRouter: cohere/north-mini-code:free)
-- Member D --- role (e.g. Groq: qwen/qwen3.8-27b)
-- Member E --- role (e.g. OpenRouter: dots-studio/dots-3-note-preview:free)
-- Members F, G, H --- reference-checking, trace merging, synthesis
+Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and TD3.
+
+| Role | Member | TD1 task |
+|---|---|---|
+| A | Robin | Groq: `openai/gpt-oss-120b` |
+| B | Raphaël | Groq: `openai/gpt-oss-20b` |
+| C | Thomas | OpenRouter: `cohere/north-mini-code:free` |
+| D | Matéo | Groq: `qwen/qwen3.8-27b` |
+| E | Christophe | OpenRouter: `dots-studio/dots-3-note-preview:free` |
+| F + H | Pierre-Louis | Reference cross-checks, run coordination and counting, trace merge |
+| G | Florentin | Five-model summary, comparison table and pivot |
 
 ## Course pack and environment
 
-- Pack version: `2026-10-14-students-1` (14 October 2026) --- see `modeles-autorises.json` in the kit.
-- Python 3.10+ (tested with 3.14.7), virtual environment in `kit-td1/.venv`.
-- Dependency: `requests` (see `kit-td1/requirements` section of the environment guide).
-
-## Reproducing the setup check
-
-```powershell
-cd kit-td1
-.venv\Scripts\Activate.ps1
-python check_access.py | Tee-Object ready-for-td1.txt
-```
-
-`modeles-autorises.json` must be dated `2026-10-14`; a passing run reports 5/5 required models `[OK]`.
+- Pack version: `2026-10-14-students-1` (14 October 2026), `modeles-autorises.json` dated `2026-10-14`.
+- Database: `data/boutique.sqlite`, seed 20260925, SHA-256 `0077e235...3398fec2`, identical to the kit's
+  `data/manifest.json`.
+- Python 3.10+ (tested with 3.14.7), standard library only for the scripts of this repository; `requests`
+  installed in the kit's virtual environment for `check_access.py`.
 
 ## Repository layout
 
-- `reports/` --- one Markdown report per session (`td1.md`, `td2.md`, `td3.md`), added after each TD.
-- `.gitignore` --- copied from the student kit; keeps API keys, `.env` files and local caches out of this
-  public repository.
+| Path | Content |
+|---|---|
+| `reference-td1.csv` | C01-C20: reference query and integer value, computed by SQL and independently checked |
+| `references/` | Script that produced the references, and members' independent cross-checks |
+| `traces/raw/` | Each operator's `traces-X.csv` and `state-X.jsonl`, unmodified |
+| `traces/merge_traces.py` | Merges `traces/raw/` into `traces-td1.csv` / `traces-td1.jsonl` and checks them |
+| `traces/run-log-td1.csv` | Counting sheet: allowances, initial calls, retries, checks per operator |
+| `traces-td1.csv`, `traces-td1.jsonl` | Merged traces, every attempt (generated once all five batches are in) |
+| `model-question-comparison-en.csv` | One final row per model and question, with cause and trace pointer |
+| `five-model-summary-en.csv` | Index, dated prices, access and per-family results of the five models |
+| `prompts-en.md` | System message and user template exactly as used, and coding-assistance prompts |
+| `contributions-en.csv` | Who did what, and who cross-checked it |
+| `reports/` | One report per session: `td1.md`, then `td2.md`, `td3.md` |
+
+## Reproducing
+
+From a fresh clone, with the student kit extracted next to it:
+
+```powershell
+python references/compute_references.py --kit <path-to>/kit-td1
+python traces/merge_traces.py
+```
+
+The first command rewrites `reference-td1.csv` and prints the SQL value next to an independent
+computation on the CSV files. The second rebuilds the merged traces and `traces/merge-report.md`.
+Model calls are not re-run: the five commands used, one per operator, are in `traces/README.md`.
+
+## Contributing during a session
+
+Work on your own branch from an up-to-date `master`, commit only your own files (traces go straight into
+`traces/raw/`), never commit keys, `.env` files or `ready-for-td1.txt`, then open a pull request.
+Shared files (`reference-td1.csv`, merged traces, summaries, README) are updated by F/G.
 
 ## Hand-in
 
