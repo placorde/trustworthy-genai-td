@@ -71,14 +71,16 @@ output tokens each exceed 1000 output tokens per minute on the later questions o
 Dots both return 71640 (reference 1990). Both are candidates for the wrong-consensus analysis of TD2; in each
 case the two models reach the same value by different wrong SQL.
 
-**Still incomplete at the time of writing.**
+**Open points recorded at hand-in.**
 
-- Remaining account allowances before and after each batch are not yet recorded in
-  [`traces/run-log-td1.csv`](../traces/run-log-td1.csv) (calls, retries and incidents are filled from the traces).
-- References C13-C20 have no cross-check file from a member in the repository; they rest on the CSV
-  recomputation and the instructor's confirmation.
-- The causes for models B-E were drafted with coding assistance (declared in `prompts-en.md`) and are being
-  reviewed by G.
+- Remaining account allowances before and after each batch were not written down at run time, and the traces
+  carry no account counter: they are `N/A` with that reason in
+  [`traces/run-log-td1.csv`](../traces/run-log-td1.csv). Calls, retries and incidents per operator are filled
+  from the traces.
+- References C13-C20 have no cross-check file from a member in the repository; they rest on the pure-Python
+  recomputation and the instructor's confirmation against the answer key.
+- The causes for models B-E were drafted with coding assistance (declared in `prompts-en.md`); G (Florentin) checks them
+  against the returned SQL before the hand-in commit.
 
 ## Decisions, limits and uncertainty
 
@@ -96,6 +98,12 @@ case the two models reach the same value by different wrong SQL.
   ranking.
 - **Prompt.** Unchanged during the session; no second experiment was started.
 
+## Assessment evidence
+
+The evidence shown for R1, R2 and R3 (conventions, independent checks, the selected trace with its
+retry and fingerprint, a wrong answer versus a failed access) is gathered with file and row references in
+[`td1-assessment-evidence.md`](td1-assessment-evidence.md).
+
 ## Division of labour
 
 | Member | Role in TD1 |
@@ -112,11 +120,11 @@ Details and cross-checkers: [`contributions-en.csv`](../contributions-en.csv).
 
 ## Next steps / help needed
 
-- Record each operator's remaining allowance in the run log.
+- From TD2 on, each operator writes their remaining allowance in the run log before and after any call.
 - TD2: complete `vote_k_sur_n`, run `atelier-vote.py --traces traces-td1.csv` on the twenty questions, and use
   C02 or C19 for the wrong-consensus case; note that Cohere is in the fixed panel, Dots is not.
 - TD2 routing rule: start from the per-family results above (period and product: cheapest model; age: quorum
   or reference check).
 
 ---
-Pack version used: `2026-10-14-students-1`. Commit of this report: <!-- fill in after committing -->.
+Pack version used: `2026-10-14-students-1`. Commit of this report: the commit tagged `td1-submission`; its full hash is recorded in the Moodle hand-in entry.

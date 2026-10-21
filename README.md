@@ -40,7 +40,7 @@ Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and 
 | `five-model-summary-en.csv` | Index, dated prices, access and per-family results of the five models |
 | `prompts-en.md` | System message and user template exactly as used, and coding-assistance prompts |
 | `contributions-en.csv` | Who did what, and who cross-checked it |
-| `reports/` | One report per session: `td1.md`, then `td2.md`, `td3.md` |
+| `reports/` | One report per session: `td1.md`, then `td2.md`, `td3.md`; `td1-assessment-evidence.md` gathers the R1-R3 evidence |
 
 ## Reproducing
 
