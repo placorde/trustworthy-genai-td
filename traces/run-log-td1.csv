@@ -1,0 +1,6 @@
+operator,member,provider,model,allowance_before,allowance_read_at_utc,access_checks_before_run,initial_calls,retries,extra_checks,allowance_after,state_file,trace_file,incidents
+A,Robin,groq,openai/gpt-oss-120b,,,,,,,,state-A.jsonl,traces-A.csv,
+B,Raphaël,groq,openai/gpt-oss-20b,,,,,,,,state-B.jsonl,traces-B.csv,
+C,Thomas,openrouter,cohere/north-mini-code:free,,,,,,,,state-C.jsonl,traces-C.csv,
+D,Matéo,groq,qwen/qwen3.8-27b,,,,,,,,state-D.jsonl,traces-D.csv,
+E,Christophe,openrouter,dots-studio/dots-3-note-preview:free,,,,,,,,state-E.jsonl,traces-E.csv,
