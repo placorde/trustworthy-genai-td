@@ -43,4 +43,7 @@ scripts) are listed here as they were used.
 
 | Date | Member | Tool | Prompt | Output used in |
 |---|---|---|---|---|
+| 2026-10-21 | F (Pierre-Louis) | Claude Code (Claude Opus 5.5) | "Calcule les références SQL C01 à C20 sur boutique.sqlite et remplis reference-td1.csv dans le repo." | `references/compute_references.py`, `reference-td1.csv` (values then confirmed by members' cross-checks and the instructor) |
+| 2026-10-21 | F (Pierre-Louis) | Claude Code (Claude Opus 5.5) | "Prépare le script de fusion/contrôle des traces et la fiche de comptage dans le repo, sur une branche." | `traces/merge_traces.py`, `traces/run-log-td1.csv`, `traces/README.md` |
+| 2026-10-21 | F (Pierre-Louis) | Claude Code (Claude Opus 5.5) | "C'est bon on a tous, peux-tu réorganiser et commencer à faire la validation" | merge of B and E, `model-question-comparison-en.csv` rows B-E with causes read from the returned SQL, `five-model-summary-en.csv` rows B-E, `traces/pivot_comparison.py`; to be reviewed by G (Florentin) |
 | | | | | |
