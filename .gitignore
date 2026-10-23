@@ -22,3 +22,7 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local outputs of the offline replay command in README.md
+replay.jsonl
+replay.csv

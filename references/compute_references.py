@@ -90,7 +90,7 @@ def independent(data_dir, period_=None, age_ref=None, at_order=False, product_id
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--kit", type=Path, required=True)
+    parser.add_argument("--kit", type=Path, default=Path(__file__).resolve().parent.parent / "kit-td1")
     parser.add_argument("--out", type=Path, default=Path(__file__).resolve().parent.parent / "reference-td1.csv")
     args = parser.parse_args()
     db = sqlite3.connect(f"file:{(args.kit / 'data' / 'boutique.sqlite').as_posix()}?mode=ro", uri=True)
