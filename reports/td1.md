@@ -1,6 +1,6 @@
 # TD1 report --- compare
 
-Sub-group DIA?-G5. Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
+Sub-group DIA3-G5. Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
 repository; all trace rows are of nature `real` (no replayed or simulated row was used).
 
 ## What we attempted and what we completed

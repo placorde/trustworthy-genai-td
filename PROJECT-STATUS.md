@@ -1,4 +1,4 @@
-# Project status --- DIA?-G5
+# Project status --- DIA3-G5
 
 Updated 23 October 2026, pack `2026-10-18-students-1`.
 
@@ -25,7 +25,7 @@ The Moodle entry records the commit tagged
 | `model-question-comparison-en.csv` | Done: 100 rows, a cause for each of the 25 failures, reviewed ([`td1-review.md`](reports/td1-review.md)) |
 | `five-model-summary-en.csv` | Done: 5 rows, N/A with reason for Cohere and Dots |
 | `prompts-en.md` | Done: experiment prompt verbatim, coding-assistance prompts declared |
-| `README.md` | Done except the DIA class number (`DIA?` placeholder) |
+| `README.md` | Done: DIA3 / DIA3-G5 header, members, pack, replay commands |
 | `reports/td1.md` + R1-R3 evidence | Done |
 | `traces/run-log-td1.csv` | Calls and retries filled; allowances N/A (not recorded at run time) |
 

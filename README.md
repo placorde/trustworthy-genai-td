@@ -1,7 +1,7 @@
-# Trustworthy Generative AI --- DIA? / DIA?-G5
+# Trustworthy Generative AI --- DIA3 / DIA3-G5
 
-- **DIA class:** DIA? <!-- TODO: replace DIA? with the class number, here and in the title -->
-- **Sub-group:** DIA?-G5
+- **DIA class:** DIA3
+- **Sub-group:** DIA3-G5
 - **Members:** Robin, Raphaël, Thomas, Matéo, Christophe, Pierre-Louis, Florentin
 
 ESILV, Next-Generation AI module (Data & AI major, year 4). Shared repository for one sub-group, kept
