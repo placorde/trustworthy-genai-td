@@ -1,6 +1,6 @@
 # TD1 report --- compare
 
-Sub-group 5. Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
+Sub-group DIA3-G5. Session of 21 October 2026. Pack `2026-10-14-students-1`. Every figure below comes from the files of this
 repository; all trace rows are of nature `real` (no replayed or simulated row was used).
 
 ## What we attempted and what we completed
@@ -12,7 +12,8 @@ repository; all trace rows are of nature `real` (no replayed or simulated row wa
   [`crosscheck-C01-C04.md`](../references/crosscheck-C01-C04.md)), C05-C08 (Raphaël,
   [`refs-raph.csv`](../references/refs-raph.csv)), C09-C12 (Thomas,
   [`crosscheck-C09-C12.md`](../references/crosscheck-C09-C12.md)). The instructor confirmed the twenty values
-  against the answer key before any model call.
+  against the answer key before any model call; the reference values published on 21 October equal our
+  twenty values, so no correction was needed.
 - **Step 2, the five models.** 100 base cells, one operator at a time, each with their own state file:
   60 initial Groq calls (A, B, D) and 40 initial OpenRouter calls (C, E), plus 6 retries. All attempts are
   merged in [`traces-td1.csv`](../traces-td1.csv) / [`traces-td1.jsonl`](../traces-td1.jsonl) (106 rows) from the
@@ -98,6 +99,11 @@ case the two models reach the same value by different wrong SQL.
   product questions here; age questions need gpt-oss-120b or a check), not a general error rate or a permanent
   ranking.
 - **Prompt.** Unchanged during the session; no second experiment was started.
+- **Models and pack.** The five proposed models of 14 October were used with the parameters of
+  [`kit-td1/modeles-autorises.json`](../kit-td1/modeles-autorises.json); no replacement model. The batches ran
+  with the kit of pack `2026-10-14-students-1`; pack `2026-10-18-students-1` has the same code, data,
+  questions and selection, and its copy is in [`kit-td1/`](../kit-td1/), from which the offline replay in the
+  README reproduces every verdict.
 
 ## Assessment evidence
 

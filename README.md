@@ -1,9 +1,13 @@
-# Trustworthy Generative AI --- Sub-group repository (TD1 -> TD3)
+# Trustworthy Generative AI --- DIA3 / DIA3-G5
+
+- **DIA class:** DIA3
+- **Sub-group:** DIA3-G5
+- **Members:** Robin, Raphaël, Thomas, Matéo, Christophe, Pierre-Louis, Florentin
 
 ESILV, Next-Generation AI module (Data & AI major, year 4). Shared repository for one sub-group, kept
 public and read-accessible without sign-in from TD1 through TD3.
 
-## Sub-group 5 and members (TD1 roles)
+## Members and TD1 roles
 
 Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and TD3.
 
@@ -19,16 +23,23 @@ Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and 
 
 ## Course pack and environment
 
-- Pack version: `2026-10-14-students-1` (14 October 2026), `modeles-autorises.json` dated `2026-10-14`.
-- Database: `data/boutique.sqlite`, seed 20260925, SHA-256 `0077e235...3398fec2`, identical to the kit's
-  `data/manifest.json`.
-- Python 3.10+ (tested with 3.14.7), standard library only for the scripts of this repository; `requests`
-  installed in the kit's virtual environment for `check_access.py`.
+- Pack version: TD1 batches ran with the kit of pack `2026-10-14-students-1`; the site moved to
+  `2026-10-18-students-1` (18 October 2026). The code, the database, the questions and the model selection
+  are byte-identical between the two packs; `kit-td1/` holds the 18 October copy. The published reference
+  values of 21 October equal our `reference-td1.csv` on all twenty questions.
+- Model configuration read by the code: [`kit-td1/modeles-autorises.json`](kit-td1/modeles-autorises.json)
+  (selection of 14 October 2026: providers, exact identifiers, parameters; no key). No replacement model
+  was used in TD1.
+- Database: `kit-td1/data/boutique.sqlite`, seed 20260925, SHA-256 `0077e235...3398fec2`, identical to
+  `kit-td1/data/manifest.json` (`python kit-td1/verify-data.py`).
+- Python 3.10+ (tested with 3.14.7), standard library only; `requests` only for `kit-td1/check_access.py`.
+  API keys stay in the `GROQ_API_KEY` and `OPENROUTER_API_KEY` environment variables, never in the repository.
 
 ## Repository layout
 
 | Path | Content |
 |---|---|
+| `kit-td1/` | Code, configuration and data of the student kit, unmodified: `skeleton-multi-llm-en.py` (common prompt, one client interface for both providers, error handling and retries, read-only sandbox, one trace line per call), `sandbox_sqlite.py`, `modeles-autorises.json`, `check_access.py`, `atelier-vote.py`, `atelier-routage.py`, `data/` |
 | `reference-td1.csv` | C01-C20: reference query and integer value, computed by SQL and independently checked |
 | `references/` | Script that produced the references, and members' independent cross-checks |
 | `traces/raw/` | Each operator's `traces-X.csv` and `state-X.jsonl`, unmodified |
@@ -45,17 +56,26 @@ Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and 
 
 ## Reproducing
 
-From a fresh clone, with the student kit extracted next to it:
+From a fresh clone, with no other download (offline, no key needed):
 
 ```powershell
-python references/compute_references.py --kit <path-to>/kit-td1
+python kit-td1/verify-data.py
+python references/compute_references.py
 python traces/merge_traces.py
 python traces/pivot_comparison.py
+python kit-td1/skeleton-multi-llm-en.py --rates --state traces-td1.jsonl
+python kit-td1/skeleton-multi-llm-en.py --replay traces-td1.csv --reference reference-td1.csv --state replay.jsonl --out replay.csv
 ```
 
-The first command rewrites `reference-td1.csv` and prints the SQL value next to an independent
-computation on the CSV files. The second rebuilds the merged traces and `traces/merge-report.md`.
-Model calls are not re-run: the five commands used, one per operator, are in `traces/README.md`.
+1. Checks the database against its manifest.
+2. Rewrites `reference-td1.csv` and prints each SQL value next to an independent computation on the CSV files.
+3. Rebuilds the merged traces from `traces/raw/` and `traces/merge-report.md`.
+4. Rebuilds the models x questions view `results-pivot-td1.md`.
+5. Prints the per-model results from the merged real traces.
+6. Re-executes every stored SQL offline in the sandbox and recomputes the verdicts (rows labelled `replay`).
+
+The model calls themselves are not re-run (one batch per account): the five commands used, one per
+operator, are in `traces/README.md`; they need the API keys in environment variables.
 
 ## Contributing during a session
 
