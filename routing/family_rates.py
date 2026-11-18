@@ -1,73 +1,107 @@
+#!/usr/bin/env python3
+"""TD2 step 3 (pair C): TD1 accuracy per question family, difficulty level and model level.
+
+Reads model-question-comparison-en.csv (final attempt of every cell), five-model-summary-en.csv
+(dated billed prices) and traces-td1.csv (tokens). Writes routing/family-rates-td1.json and .md.
+
+Difficulty (lecture: "difficulty determines the minimum model level L1/L2/L3"):
+  L1 = F1 period + F3 product list   (filters every model handles in TD1)
+  L2 = F2 completed age at a date     (the completed-age convention)
+  L3 = F2b age at the order + F4 combinations (age per order date, or age mixed with other filters)
+A model's level is the highest L such that it is correct on every TD1 cell of difficulty <= L.
+Standard library only.
+"""
 import csv
 import json
 import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+OUT = Path(__file__).resolve().parent
 
 FAMILIES = {
-    "F1": ("period", ["C01", "C04", "C05", "C06", "C07", "C20"]),
-    "F2": ("completed age at a date", ["C02", "C08", "C09", "C11"]),
-    "F2b": ("age at the order", ["C10"]),
-    "F3": ("product list", ["C03", "C12", "C13", "C14"]),
-    "F4": ("combinations", ["C15", "C16", "C17", "C18", "C19"]),
+    "F1": {"name": "period", "level": 1, "cases": ["C01", "C04", "C05", "C06", "C07", "C20"]},
+    "F3": {"name": "product list", "level": 1, "cases": ["C03", "C12", "C13", "C14"]},
+    "F2": {"name": "completed age at a date", "level": 2, "cases": ["C02", "C08", "C09", "C11"]},
+    "F2b": {"name": "age at the order", "level": 3, "cases": ["C10"]},
+    "F4": {"name": "combinations", "level": 3, "cases": ["C15", "C16", "C17", "C18", "C19"]},
 }
+LEVELS = (1, 2, 3)
 
 
-def read_csv(path):
-    with open(path, newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+def per_million(text):
+    try:
+        return float(text)
+    except ValueError:
+        return None
 
 
 def main():
-    config = json.loads((ROOT / "kit-td1" / "modeles-autorises.json").read_text(encoding="utf-8"))
-    models = [f"{m['gate']}:{m['identifiant_exact']}" for m in config["modeles"]]
-    cells = {(r["model_id"], r["case_id"]): r for r in read_csv(ROOT / "model-question-comparison-en.csv")}
-    summary = {r["model_id"]: r for r in read_csv(ROOT / "five-model-summary-en.csv")}
-    traces = read_csv(ROOT / "traces-td1.csv")
+    cells = list(csv.DictReader(open(ROOT / "model-question-comparison-en.csv", encoding="utf-8")))
+    models = list(dict.fromkeys(c["model_id"] for c in cells))
+    status = {(c["model_id"], c["case_id"]): c for c in cells}
+    assert len(status) == 100, "expected 5 models x 20 questions"
 
-    rates = {}
-    for family, (label, cases) in FAMILIES.items():
-        for model in models:
-            correct = [c for c in cases if cells[(model, c)]["status"] == "correct"]
-            wrong = [c for c in cases if c not in correct]
-            rates[(family, model)] = {"correct": len(correct), "cases": len(cases), "wrong": wrong}
+    summary = {f'{r["provider"]}:{r["model_id"]}': r
+               for r in csv.DictReader(open(ROOT / "five-model-summary-en.csv", encoding="utf-8"))}
+    tokens = {}
+    for t in csv.DictReader(open(ROOT / "traces-td1.csv", encoding="utf-8")):
+        if t["http_status"] == "200" and t["tokens_prompt"]:
+            tokens.setdefault(f'{t["provider"]}:{t["model_requested"]}', []).append(
+                (int(t["tokens_prompt"]), int(t["tokens_completion"])))
 
-    envelope = {}
-    for model in models:
-        ok = [r for r in traces if f"{r['provider']}:{r['model_requested']}" == model and r["http_status"] == "200"]
-        envelope[model] = {"tokens_in": statistics.median(int(r["tokens_prompt"]) for r in ok),
-                           "tokens_out": statistics.median(int(r["tokens_completion"]) for r in ok)}
+    rates, model_info = {}, {}
+    for m in models:
+        for fam, f in FAMILIES.items():
+            wrong = [c for c in f["cases"] if status[(m, c)]["status"] != "correct"]
+            rates[f"{fam}|{m}"] = {"correct": len(f["cases"]) - len(wrong), "cases": len(f["cases"]),
+                                   "wrong": wrong}
+        level = 0
+        for lv in LEVELS:
+            cases = [c for f in FAMILIES.values() if f["level"] <= lv for c in f["cases"]]
+            if all(status[(m, c)]["status"] == "correct" for c in cases):
+                level = lv
+        s = summary[m]
+        price_in, price_out = per_million(s["input_usd_per_million"]), per_million(s["output_usd_per_million"])
+        tin = statistics.median(t[0] for t in tokens[m])
+        tout = statistics.median(t[1] for t in tokens[m])
+        billed = None if price_in is None else round((tin * price_in + tout * price_out) / 1e6, 6)
+        model_info[m] = {"level": level, "price_in": price_in, "price_out": price_out,
+                         "price_date": s["price_date"], "price_source": s["price_source"],
+                         "median_tokens_in": tin, "median_tokens_out": tout,
+                         "billed_usd_per_request": billed, "paid_route": s["paid_route_same_model"]}
 
-    lines = ["# TD1 accuracy per question family", "",
+    level_cells = {lv: [c for f in FAMILIES.values() if f["level"] == lv for c in f["cases"]] for lv in LEVELS}
+    data = {"source": "model-question-comparison-en.csv (TD1 final attempts), five-model-summary-en.csv, traces-td1.csv",
+            "families": FAMILIES, "level_cells": level_cells, "rates": rates, "models": model_info}
+    (OUT / "family-rates-td1.json").write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    short = [m.split(":", 1)[1] for m in models]
+    lines = ["# TD1 accuracy per question family and level", "",
              "Generated by `routing/family_rates.py` from `model-question-comparison-en.csv` (final attempt of each",
-             "cell). Cell = correct / cases on the family, then the failing questions. Families follow the TD2",
-             "assignment; C10 is the only pure age-at-the-order question, C15-C19 combine filters.", "",
-             "| Family | Questions | " + " | ".join(f"`{m.split(':', 1)[1]}`" for m in models) + " |",
-             "|---|---|" + "---|" * len(models)]
-    for family, (label, cases) in FAMILIES.items():
-        row = [f"{family} {label}", ", ".join(cases)]
-        for model in models:
-            r = rates[(family, model)]
-            row.append(f"{r['correct']}/{r['cases']}" + (f" (fails {', '.join(r['wrong'])})" if r["wrong"] else ""))
-        lines.append("| " + " | ".join(row) + " |")
-    lines += ["", "Billed-equivalent price of the same model (USD excluding tax per million tokens, input / output) and",
-              "median tokens per successful TD1 call, from `five-model-summary-en.csv` and `traces-td1.csv`:", "",
-              "| Model | Price in / out | Date, source | Median tokens in / out |", "|---|---|---|---|"]
-    for model in models:
-        s = summary[model.split(":", 1)[1]]
-        e = envelope[model]
-        lines.append(f"| `{model}` | {s['input_usd_per_million']} / {s['output_usd_per_million']} | "
-                     f"{s['price_date']}, {s['price_source'].split(' (')[0]} | {e['tokens_in']:g} / {e['tokens_out']:g} |")
-    (ROOT / "routing" / "family-rates-td1.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-    out = {"families": {f: {"label": l, "cases": c} for f, (l, c) in FAMILIES.items()},
-           "rates": {f"{f}|{m}": v for (f, m), v in rates.items()},
-           "prices": {m: {"input": summary[m.split(":", 1)[1]]["input_usd_per_million"],
-                          "output": summary[m.split(":", 1)[1]]["output_usd_per_million"],
-                          "date": summary[m.split(":", 1)[1]]["price_date"]} for m in models},
-           "envelope": envelope}
-    (ROOT / "routing" / "family-rates-td1.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+             "cell). Cell = correct / cases, then the failing questions.", "",
+             "| Family | Difficulty | Questions | " + " | ".join(f"`{s}`" for s in short) + " |",
+             "|---|---|---|" + "---|" * len(models)]
+    for fam, f in FAMILIES.items():
+        row = []
+        for m in models:
+            r = rates[f"{fam}|{m}"]
+            row.append(f'{r["correct"]}/{r["cases"]}' + (f' (fails {", ".join(r["wrong"])})' if r["wrong"] else ""))
+        lines.append(f'| {fam} {f["name"]} | L{f["level"]} | {", ".join(f["cases"])} | ' + " | ".join(row) + " |")
+    lines += ["", "Model level = highest L with every TD1 cell of difficulty <= L correct.", "",
+              "| Model | Level | L1 cells (10) | L2 cells (4) | L3 cells (6) | Billed price in / out (USD per M) | Median tokens in / out | Billed USD per request |",
+              "|---|---|---|---|---|---|---|---|"]
+    for m in models:
+        i = model_info[m]
+        per_level = []
+        for lv in LEVELS:
+            cs = level_cells[lv]
+            per_level.append(f'{sum(status[(m, c)]["status"] == "correct" for c in cs)}/{len(cs)}')
+        price = "N/A (free route only)" if i["price_in"] is None else f'{i["price_in"]} / {i["price_out"]} ({i["price_date"]})'
+        cost = "N/A" if i["billed_usd_per_request"] is None else f'{i["billed_usd_per_request"]:.6f}'
+        lines.append(f'| `{m}` | L{i["level"]} | ' + " | ".join(per_level)
+                     + f' | {price} | {i["median_tokens_in"]} / {i["median_tokens_out"]} | {cost} |')
+    (OUT / "family-rates-td1.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
 
 

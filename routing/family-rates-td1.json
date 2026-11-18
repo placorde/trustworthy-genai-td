@@ -1,7 +1,9 @@
 {
+ "source": "model-question-comparison-en.csv (TD1 final attempts), five-model-summary-en.csv, traces-td1.csv",
  "families": {
   "F1": {
-   "label": "period",
+   "name": "period",
+   "level": 1,
    "cases": [
     "C01",
     "C04",
@@ -11,8 +13,19 @@
     "C20"
    ]
   },
+  "F3": {
+   "name": "product list",
+   "level": 1,
+   "cases": [
+    "C03",
+    "C12",
+    "C13",
+    "C14"
+   ]
+  },
   "F2": {
-   "label": "completed age at a date",
+   "name": "completed age at a date",
+   "level": 2,
    "cases": [
     "C02",
     "C08",
@@ -21,22 +34,15 @@
    ]
   },
   "F2b": {
-   "label": "age at the order",
+   "name": "age at the order",
+   "level": 3,
    "cases": [
     "C10"
    ]
   },
-  "F3": {
-   "label": "product list",
-   "cases": [
-    "C03",
-    "C12",
-    "C13",
-    "C14"
-   ]
-  },
   "F4": {
-   "label": "combinations",
+   "name": "combinations",
+   "level": 3,
    "cases": [
     "C15",
     "C16",
@@ -46,33 +52,68 @@
    ]
   }
  },
+ "level_cells": {
+  "1": [
+   "C01",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C20",
+   "C03",
+   "C12",
+   "C13",
+   "C14"
+  ],
+  "2": [
+   "C02",
+   "C08",
+   "C09",
+   "C11"
+  ],
+  "3": [
+   "C10",
+   "C15",
+   "C16",
+   "C17",
+   "C18",
+   "C19"
+  ]
+ },
  "rates": {
   "F1|groq:openai/gpt-oss-120b": {
    "correct": 6,
    "cases": 6,
    "wrong": []
   },
+  "F3|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F2|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F2b|groq:openai/gpt-oss-120b": {
+   "correct": 1,
+   "cases": 1,
+   "wrong": []
+  },
+  "F4|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 5,
+   "wrong": [
+    "C17"
+   ]
+  },
   "F1|groq:openai/gpt-oss-20b": {
    "correct": 6,
    "cases": 6,
    "wrong": []
   },
-  "F1|openrouter:cohere/north-mini-code:free": {
-   "correct": 6,
-   "cases": 6,
-   "wrong": []
-  },
-  "F1|groq:qwen/qwen3.8-27b": {
-   "correct": 6,
-   "cases": 6,
-   "wrong": []
-  },
-  "F1|openrouter:dots-studio/dots-3-note-preview:free": {
-   "correct": 6,
-   "cases": 6,
-   "wrong": []
-  },
-  "F2|groq:openai/gpt-oss-120b": {
+  "F3|groq:openai/gpt-oss-20b": {
    "correct": 4,
    "cases": 4,
    "wrong": []
@@ -86,6 +127,26 @@
     "C11"
    ]
   },
+  "F2b|groq:openai/gpt-oss-20b": {
+   "correct": 1,
+   "cases": 1,
+   "wrong": []
+  },
+  "F4|groq:openai/gpt-oss-20b": {
+   "correct": 5,
+   "cases": 5,
+   "wrong": []
+  },
+  "F1|openrouter:cohere/north-mini-code:free": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F3|openrouter:cohere/north-mini-code:free": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
   "F2|openrouter:cohere/north-mini-code:free": {
    "correct": 0,
    "cases": 4,
@@ -96,7 +157,61 @@
     "C11"
    ]
   },
+  "F2b|openrouter:cohere/north-mini-code:free": {
+   "correct": 0,
+   "cases": 1,
+   "wrong": [
+    "C10"
+   ]
+  },
+  "F4|openrouter:cohere/north-mini-code:free": {
+   "correct": 1,
+   "cases": 5,
+   "wrong": [
+    "C15",
+    "C17",
+    "C18",
+    "C19"
+   ]
+  },
+  "F1|groq:qwen/qwen3.8-27b": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F3|groq:qwen/qwen3.8-27b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
   "F2|groq:qwen/qwen3.8-27b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F2b|groq:qwen/qwen3.8-27b": {
+   "correct": 0,
+   "cases": 1,
+   "wrong": [
+    "C10"
+   ]
+  },
+  "F4|groq:qwen/qwen3.8-27b": {
+   "correct": 1,
+   "cases": 5,
+   "wrong": [
+    "C15",
+    "C16",
+    "C17",
+    "C19"
+   ]
+  },
+  "F1|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F3|openrouter:dots-studio/dots-3-note-preview:free": {
    "correct": 4,
    "cases": 4,
    "wrong": []
@@ -110,91 +225,10 @@
     "C11"
    ]
   },
-  "F2b|groq:openai/gpt-oss-120b": {
-   "correct": 1,
-   "cases": 1,
-   "wrong": []
-  },
-  "F2b|groq:openai/gpt-oss-20b": {
-   "correct": 1,
-   "cases": 1,
-   "wrong": []
-  },
-  "F2b|openrouter:cohere/north-mini-code:free": {
-   "correct": 0,
-   "cases": 1,
-   "wrong": [
-    "C10"
-   ]
-  },
-  "F2b|groq:qwen/qwen3.8-27b": {
-   "correct": 0,
-   "cases": 1,
-   "wrong": [
-    "C10"
-   ]
-  },
   "F2b|openrouter:dots-studio/dots-3-note-preview:free": {
    "correct": 1,
    "cases": 1,
    "wrong": []
-  },
-  "F3|groq:openai/gpt-oss-120b": {
-   "correct": 4,
-   "cases": 4,
-   "wrong": []
-  },
-  "F3|groq:openai/gpt-oss-20b": {
-   "correct": 4,
-   "cases": 4,
-   "wrong": []
-  },
-  "F3|openrouter:cohere/north-mini-code:free": {
-   "correct": 4,
-   "cases": 4,
-   "wrong": []
-  },
-  "F3|groq:qwen/qwen3.8-27b": {
-   "correct": 4,
-   "cases": 4,
-   "wrong": []
-  },
-  "F3|openrouter:dots-studio/dots-3-note-preview:free": {
-   "correct": 4,
-   "cases": 4,
-   "wrong": []
-  },
-  "F4|groq:openai/gpt-oss-120b": {
-   "correct": 4,
-   "cases": 5,
-   "wrong": [
-    "C17"
-   ]
-  },
-  "F4|groq:openai/gpt-oss-20b": {
-   "correct": 5,
-   "cases": 5,
-   "wrong": []
-  },
-  "F4|openrouter:cohere/north-mini-code:free": {
-   "correct": 1,
-   "cases": 5,
-   "wrong": [
-    "C15",
-    "C17",
-    "C18",
-    "C19"
-   ]
-  },
-  "F4|groq:qwen/qwen3.8-27b": {
-   "correct": 1,
-   "cases": 5,
-   "wrong": [
-    "C15",
-    "C16",
-    "C17",
-    "C19"
-   ]
   },
   "F4|openrouter:dots-studio/dots-3-note-preview:free": {
    "correct": 1,
@@ -207,53 +241,61 @@
    ]
   }
  },
- "prices": {
+ "models": {
   "groq:openai/gpt-oss-120b": {
-   "input": "0.15",
-   "output": "0.6",
-   "date": "2026-09-28"
+   "level": 2,
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "price_date": "2026-09-28",
+   "price_source": "kit-td1/portefeuille-modeles-2026-09-28.csv (row gpt-oss-120b#openrouter)",
+   "median_tokens_in": 638.0,
+   "median_tokens_out": 185.5,
+   "billed_usd_per_request": 0.000207,
+   "paid_route": "openrouter:openai/gpt-oss-120b (pay-per-token, candidate)"
   },
   "groq:openai/gpt-oss-20b": {
-   "input": "0.075",
-   "output": "0.30",
-   "date": "2026-10-05"
+   "level": 1,
+   "price_in": 0.075,
+   "price_out": 0.3,
+   "price_date": "2026-10-05",
+   "price_source": "kit-td1/methode-cout-en.md step 2 (Groq model catalogue checked 2026-10-05)",
+   "median_tokens_in": 638.0,
+   "median_tokens_out": 193.5,
+   "billed_usd_per_request": 0.000106,
+   "paid_route": "groq:openai/gpt-oss-20b (Groq Developer, billed)"
   },
   "openrouter:cohere/north-mini-code:free": {
-   "input": "N/A",
-   "output": "N/A",
-   "date": "2026-10-14"
+   "level": 1,
+   "price_in": null,
+   "price_out": null,
+   "price_date": "2026-10-14",
+   "price_source": "kit-td1/methode-cout-en.md step 2",
+   "median_tokens_in": 557.0,
+   "median_tokens_out": 97.0,
+   "billed_usd_per_request": null,
+   "paid_route": "N/A: exact matching paid route not documented (OpenRouter catalogue checked 2026-10-14 lists a free route only)"
   },
   "groq:qwen/qwen3.8-27b": {
-   "input": "0.80",
-   "output": "4.00",
-   "date": "2026-10-05"
+   "level": 2,
+   "price_in": 0.8,
+   "price_out": 4.0,
+   "price_date": "2026-10-05",
+   "price_source": "kit-td1/methode-cout-en.md step 2 (Groq model catalogue checked 2026-10-05)",
+   "median_tokens_in": 630.0,
+   "median_tokens_out": 120.0,
+   "billed_usd_per_request": 0.000984,
+   "paid_route": "groq:qwen/qwen3.8-27b (Groq Developer, billed)"
   },
   "openrouter:dots-studio/dots-3-note-preview:free": {
-   "input": "N/A",
-   "output": "N/A",
-   "date": "2026-10-14"
-  }
- },
- "envelope": {
-  "groq:openai/gpt-oss-120b": {
-   "tokens_in": 638.0,
-   "tokens_out": 185.5
-  },
-  "groq:openai/gpt-oss-20b": {
-   "tokens_in": 638.0,
-   "tokens_out": 193.5
-  },
-  "openrouter:cohere/north-mini-code:free": {
-   "tokens_in": 557.0,
-   "tokens_out": 97.0
-  },
-  "groq:qwen/qwen3.8-27b": {
-   "tokens_in": 630.0,
-   "tokens_out": 120.0
-  },
-  "openrouter:dots-studio/dots-3-note-preview:free": {
-   "tokens_in": 593.0,
-   "tokens_out": 114.0
+   "level": 1,
+   "price_in": null,
+   "price_out": null,
+   "price_date": "2026-10-14",
+   "price_source": "kit-td1/methode-cout-en.md step 2",
+   "median_tokens_in": 593.0,
+   "median_tokens_out": 114.0,
+   "billed_usd_per_request": null,
+   "paid_route": "N/A: exact matching paid route not documented (OpenRouter catalogue checked 2026-10-14 lists a free route only)"
   }
  }
 }
