@@ -1,0 +1,259 @@
+{
+ "families": {
+  "F1": {
+   "label": "period",
+   "cases": [
+    "C01",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C20"
+   ]
+  },
+  "F2": {
+   "label": "completed age at a date",
+   "cases": [
+    "C02",
+    "C08",
+    "C09",
+    "C11"
+   ]
+  },
+  "F2b": {
+   "label": "age at the order",
+   "cases": [
+    "C10"
+   ]
+  },
+  "F3": {
+   "label": "product list",
+   "cases": [
+    "C03",
+    "C12",
+    "C13",
+    "C14"
+   ]
+  },
+  "F4": {
+   "label": "combinations",
+   "cases": [
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19"
+   ]
+  }
+ },
+ "rates": {
+  "F1|groq:openai/gpt-oss-120b": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F1|groq:openai/gpt-oss-20b": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F1|openrouter:cohere/north-mini-code:free": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F1|groq:qwen/qwen3.8-27b": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F1|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 6,
+   "cases": 6,
+   "wrong": []
+  },
+  "F2|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F2|groq:openai/gpt-oss-20b": {
+   "correct": 1,
+   "cases": 4,
+   "wrong": [
+    "C02",
+    "C08",
+    "C11"
+   ]
+  },
+  "F2|openrouter:cohere/north-mini-code:free": {
+   "correct": 0,
+   "cases": 4,
+   "wrong": [
+    "C02",
+    "C08",
+    "C09",
+    "C11"
+   ]
+  },
+  "F2|groq:qwen/qwen3.8-27b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F2|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 1,
+   "cases": 4,
+   "wrong": [
+    "C02",
+    "C09",
+    "C11"
+   ]
+  },
+  "F2b|groq:openai/gpt-oss-120b": {
+   "correct": 1,
+   "cases": 1,
+   "wrong": []
+  },
+  "F2b|groq:openai/gpt-oss-20b": {
+   "correct": 1,
+   "cases": 1,
+   "wrong": []
+  },
+  "F2b|openrouter:cohere/north-mini-code:free": {
+   "correct": 0,
+   "cases": 1,
+   "wrong": [
+    "C10"
+   ]
+  },
+  "F2b|groq:qwen/qwen3.8-27b": {
+   "correct": 0,
+   "cases": 1,
+   "wrong": [
+    "C10"
+   ]
+  },
+  "F2b|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 1,
+   "cases": 1,
+   "wrong": []
+  },
+  "F3|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F3|groq:openai/gpt-oss-20b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F3|openrouter:cohere/north-mini-code:free": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F3|groq:qwen/qwen3.8-27b": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F3|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 4,
+   "cases": 4,
+   "wrong": []
+  },
+  "F4|groq:openai/gpt-oss-120b": {
+   "correct": 4,
+   "cases": 5,
+   "wrong": [
+    "C17"
+   ]
+  },
+  "F4|groq:openai/gpt-oss-20b": {
+   "correct": 5,
+   "cases": 5,
+   "wrong": []
+  },
+  "F4|openrouter:cohere/north-mini-code:free": {
+   "correct": 1,
+   "cases": 5,
+   "wrong": [
+    "C15",
+    "C17",
+    "C18",
+    "C19"
+   ]
+  },
+  "F4|groq:qwen/qwen3.8-27b": {
+   "correct": 1,
+   "cases": 5,
+   "wrong": [
+    "C15",
+    "C16",
+    "C17",
+    "C19"
+   ]
+  },
+  "F4|openrouter:dots-studio/dots-3-note-preview:free": {
+   "correct": 1,
+   "cases": 5,
+   "wrong": [
+    "C15",
+    "C17",
+    "C18",
+    "C19"
+   ]
+  }
+ },
+ "prices": {
+  "groq:openai/gpt-oss-120b": {
+   "input": "0.15",
+   "output": "0.6",
+   "date": "2026-09-28"
+  },
+  "groq:openai/gpt-oss-20b": {
+   "input": "0.075",
+   "output": "0.30",
+   "date": "2026-10-05"
+  },
+  "openrouter:cohere/north-mini-code:free": {
+   "input": "N/A",
+   "output": "N/A",
+   "date": "2026-10-14"
+  },
+  "groq:qwen/qwen3.8-27b": {
+   "input": "0.80",
+   "output": "4.00",
+   "date": "2026-10-05"
+  },
+  "openrouter:dots-studio/dots-3-note-preview:free": {
+   "input": "N/A",
+   "output": "N/A",
+   "date": "2026-10-14"
+  }
+ },
+ "envelope": {
+  "groq:openai/gpt-oss-120b": {
+   "tokens_in": 638.0,
+   "tokens_out": 185.5
+  },
+  "groq:openai/gpt-oss-20b": {
+   "tokens_in": 638.0,
+   "tokens_out": 193.5
+  },
+  "openrouter:cohere/north-mini-code:free": {
+   "tokens_in": 557.0,
+   "tokens_out": 97.0
+  },
+  "groq:qwen/qwen3.8-27b": {
+   "tokens_in": 630.0,
+   "tokens_out": 120.0
+  },
+  "openrouter:dots-studio/dots-3-note-preview:free": {
+   "tokens_in": 593.0,
+   "tokens_out": 114.0
+  }
+ }
+}

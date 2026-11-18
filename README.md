@@ -39,7 +39,8 @@ Seven members, so the F-H duties are shared by F and G. Roles rotate in TD2 and 
 
 | Path | Content |
 |---|---|
-| `kit-td1/` | Code, configuration and data of the student kit, unmodified: `skeleton-multi-llm-en.py` (common prompt, one client interface for both providers, error handling and retries, read-only sandbox, one trace line per call), `sandbox_sqlite.py`, `modeles-autorises.json`, `check_access.py`, `atelier-vote.py`, `atelier-routage.py`, `data/` |
+| `kit-td1/` | Code, configuration and data of the student kit, unmodified except `atelier-routage.py` (adapted in TD2 to read `routing/routing-rule.json`): `skeleton-multi-llm-en.py` (common prompt, one client interface for both providers, error handling and retries, read-only sandbox, one trace line per call), `sandbox_sqlite.py`, `modeles-autorises.json`, `check_access.py`, `atelier-vote.py`, `atelier-routage.py`, `data/` |
+| `routing/` | TD2 step 3: per-family TD1 rates, the one-page routing rule and its JSON form, quorum replay on the TD1 traces, simulator outputs before and after adaptation |
 | `reference-td1.csv` | C01-C20: reference query and integer value, computed by SQL and independently checked |
 | `references/` | Script that produced the references, and members' independent cross-checks |
 | `traces/raw/` | Each operator's `traces-X.csv` and `state-X.jsonl`, unmodified |
@@ -65,6 +66,9 @@ python traces/merge_traces.py
 python traces/pivot_comparison.py
 python kit-td1/skeleton-multi-llm-en.py --rates --state traces-td1.jsonl
 python kit-td1/skeleton-multi-llm-en.py --replay traces-td1.csv --reference reference-td1.csv --state replay.jsonl --out replay.csv
+python routing/family_rates.py
+python routing/quorum_check.py
+python kit-td1/atelier-routage.py
 ```
 
 1. Checks the database against its manifest.
@@ -73,6 +77,9 @@ python kit-td1/skeleton-multi-llm-en.py --replay traces-td1.csv --reference refe
 4. Rebuilds the models x questions view `results-pivot-td1.md`.
 5. Prints the per-model results from the merged real traces.
 6. Re-executes every stored SQL offline in the sandbox and recomputes the verdicts (rows labelled `replay`).
+7. TD2: rates per question family (`routing/family-rates-td1.md` and `.json`).
+8. TD2: the routing rule's quorums replayed on the TD1 traces (`routing/quorum-check-td1.md`).
+9. TD2: the adapted routing simulator (`routing/simulator-after.jsonl`).
 
 The model calls themselves are not re-run (one batch per account): the five commands used, one per
 operator, are in `traces/README.md`; they need the API keys in environment variables.

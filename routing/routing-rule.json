@@ -1,0 +1,50 @@
+{
+ "source": "DIA3-G5 TD2 routing rule, pair C; rates from routing/family-rates-td1.json (TD1 final attempts)",
+ "uses": ["dashboard", "customer", "payout"],
+ "resources": [
+  {"id": "groq-gpt-oss-20b-free", "model": "groq:openai/gpt-oss-20b", "access": "free", "available": true,
+   "cash": 0.0, "allocation": 0.0, "reset_minutes": null},
+  {"id": "groq-gpt-oss-120b-free", "model": "groq:openai/gpt-oss-120b", "access": "free", "available": true,
+   "cash": 0.0, "allocation": 0.0, "reset_minutes": null},
+  {"id": "groq-qwen3.8-27b-free", "model": "groq:qwen/qwen3.8-27b", "access": "free", "available": true,
+   "cash": 0.0, "allocation": 0.0, "reset_minutes": null},
+  {"id": "openrouter-cohere-north-mini-code-free", "model": "openrouter:cohere/north-mini-code:free", "access": "free", "available": true,
+   "cash": 0.0, "allocation": 0.0, "reset_minutes": null},
+  {"id": "openrouter-dots-3-note-free", "model": "openrouter:dots-studio/dots-3-note-preview:free", "access": "free", "available": true,
+   "cash": 0.0, "allocation": 0.0, "reset_minutes": null},
+  {"id": "openrouter-gpt-oss-120b-paid", "model": "openrouter:openai/gpt-oss-120b", "evidence_model": "groq:openai/gpt-oss-120b", "access": "tokens", "available": true,
+   "cash": 0.00021, "allocation": 0.0, "reset_minutes": null,
+   "price_note": "same model billed on OpenRouter, 0.15 / 0.60 USD per million tokens (portfolio 2026-09-28, row G4); 638 in + 185.5 out median TD1 tokens = 0.000207 USD per request"}
+ ],
+ "families": {
+  "F1": {"order": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b",
+                   "openrouter:cohere/north-mini-code:free", "openrouter:dots-studio/dots-3-note-preview:free"],
+         "checks": {"dashboard": "none: single free model, every model 6/6 on F1 in TD1",
+                    "customer": "2-of-3 quorum of the fixed panel (gpt-oss-120b, Cohere, Qwen, each 6/6 on F1)",
+                    "payout": "3-of-5 quorum, then deterministic check against the validated reference SQL template; human review if they differ"}},
+  "F2": {"order": ["groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b"],
+         "checks": {"dashboard": "none: gpt-oss-120b 4/4 on F2 in TD1",
+                    "customer": "2-of-3 quorum of gpt-oss-120b, Qwen (both 4/4) and Cohere (0/4): a consensus needs the two 4/4 models to agree; 3-of-5 not used (three of five models at 0-1/4)",
+                    "payout": "deterministic check: completed-age reference SQL template re-run on the database; human review if it differs from the model; abstain until reviewed"}},
+  "F2b": {"order": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "openrouter:dots-studio/dots-3-note-preview:free"],
+          "checks": {"dashboard": "2-of-3 quorum of gpt-oss-20b, gpt-oss-120b, Dots (each 1/1 on C10): none would be admissible but rests on one TD1 cell",
+                     "customer": "2-of-3 quorum of gpt-oss-20b, gpt-oss-120b, Dots, then deterministic check of the age-at-order SQL template",
+                     "payout": "deterministic check: age-at-order reference SQL template re-run on the database; human review if it differs; abstain until reviewed"}},
+  "F3": {"order": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b",
+                   "openrouter:cohere/north-mini-code:free", "openrouter:dots-studio/dots-3-note-preview:free"],
+         "checks": {"dashboard": "none: single free model, every model 4/4 on F3 in TD1",
+                    "customer": "2-of-3 quorum of the fixed panel (gpt-oss-120b, Cohere, Qwen, each 4/4 on F3)",
+                    "payout": "3-of-5 quorum, then deterministic check against the validated reference SQL template; human review if they differ"}},
+  "F4": {"order": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b"],
+         "checks": {"dashboard": "2-of-3 quorum of gpt-oss-20b (5/5), gpt-oss-120b (4/5) and Qwen (1/5); abstain without majority. Never none: every combination holds an age filter and gpt-oss-20b is 1/4 on F2",
+                    "customer": "same 2-of-3 quorum, then deterministic check of the combined reference SQL template",
+                    "payout": "deterministic check: combined reference SQL template re-run on the database; human review if it differs; abstain until reviewed"}}
+ },
+ "quorum_members": {
+  "F1": ["groq:openai/gpt-oss-120b", "openrouter:cohere/north-mini-code:free", "groq:qwen/qwen3.8-27b"],
+  "F2": ["groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b", "openrouter:cohere/north-mini-code:free"],
+  "F2b": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "openrouter:dots-studio/dots-3-note-preview:free"],
+  "F3": ["groq:openai/gpt-oss-120b", "openrouter:cohere/north-mini-code:free", "groq:qwen/qwen3.8-27b"],
+  "F4": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b"]
+ }
+}
