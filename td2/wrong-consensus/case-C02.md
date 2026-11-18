@@ -1,12 +1,12 @@
 # Wrong consensus C02 --- DIA3-G5, TD2 step 2 (pair B)
 
-**Nature of the case:** real case from our own TD1 batch (`traces-td1.csv`, merged traces), not a
+**Nature of the case:** real case from our own TD1 batch (`td1/traces-td1.csv`, merged traces), not a
 synthetic or supplied example.
 
 **Question C02:** revenue excluding VAT, in euro cents, of the orders of customers aged exactly 25
 (completed years) on 2026-09-25. Reference (`reference-td1.csv`): **590320**.
 
-Found with `python wrong-consensus/scan.py`, details with `python wrong-consensus/scan.py C02`.
+Found with `python td2/wrong-consensus/scan.py`, details with `python td2/wrong-consensus/scan.py C02`.
 Each model has a single attempt on C02, so that attempt is its final one.
 
 ## 1. Identification and quorum verdict
@@ -105,7 +105,7 @@ Query: [`delta.sql`](delta.sql). It lists the customers born between 2000-09-26 
 aged exactly 25 on 2026-09-25) with their revenue excluding VAT.
 
 ```bash
-python wrong-consensus/run_sql.py wrong-consensus/delta.sql
+python td2/wrong-consensus/run_sql.py td2/wrong-consensus/delta.sql
 ```
 
 | customer_id | birth_date | revenue_cents |

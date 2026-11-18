@@ -47,4 +47,4 @@ A new model joins in shadow mode (logged, no vote) until it has its own TD1-styl
 sufficient alone on C10 and C15-C19**: these set the cost of checking in TD3.
 
 Scenario outputs: [`simulator-before.jsonl`](simulator-before.jsonl) (kit rule) and
-[`simulator-after.jsonl`](simulator-after.jsonl) (this rule, `routing/atelier-routage.py`).
+[`simulator-after.jsonl`](simulator-after.jsonl) (this rule, `td2/routing/atelier-routage.py`).

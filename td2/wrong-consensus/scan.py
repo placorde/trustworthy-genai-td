@@ -1,14 +1,14 @@
 """TD2 step 2 (pair B): find wrong values shared by several TD1 models.
 
 Run from the repository root:
-    python wrong-consensus/scan.py          # scan the TD1 cells for shared wrong values
-    python wrong-consensus/scan.py C02      # show every attempt of the five models on one question
+    python td2/wrong-consensus/scan.py          # scan the TD1 cells for shared wrong values
+    python td2/wrong-consensus/scan.py C02      # show every attempt of the five models on one question
 """
 import collections
 import csv
 import sys
 
-rows = list(csv.DictReader(open("traces-td1.csv", encoding="utf-8")))
+rows = list(csv.DictReader(open("td1/traces-td1.csv", encoding="utf-8")))
 
 if len(sys.argv) > 1:  # detail of one question
     for r in rows:

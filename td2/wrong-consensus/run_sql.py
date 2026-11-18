@@ -1,7 +1,7 @@
 """TD2 step 2 (pair B): run one .sql file on the shop database, read-only.
 
 Run from the repository root:
-    python wrong-consensus/run_sql.py wrong-consensus/delta.sql
+    python td2/wrong-consensus/run_sql.py td2/wrong-consensus/delta.sql
 """
 import sqlite3
 import sys

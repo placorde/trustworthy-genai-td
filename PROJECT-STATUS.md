@@ -22,7 +22,7 @@ The Moodle entry records the commit tagged
 | `reference-td1.csv` | Done: 20/20, equal to the published values; member checks C01-C12, CSV recomputation 20/20 |
 | Configuration file | Done: `kit-td1/modeles-autorises.json`, read by `kit-td1/skeleton-multi-llm-en.py` |
 | `traces-td1.csv` / `.jsonl` | Done: 100 cells + 6 retries, merge check without blocking problem; offline replay reproduces every verdict |
-| `model-question-comparison-en.csv` | Done: 100 rows, a cause for each of the 25 failures, reviewed ([`td1-review.md`](reports/td1-review.md)) |
+| `model-question-comparison-en.csv` | Done: 100 rows, a cause for each of the 25 failures, reviewed ([`td1-review.md`](td1/reports/td1-review.md)) |
 | `five-model-summary-en.csv` | Done: 5 rows, N/A with reason for Cohere and Dots |
 | `prompts-en.md` | Done: experiment prompt verbatim, coding-assistance prompts declared |
 | `README.md` | Done: DIA3 / DIA3-G5 header, members, pack, replay commands |
