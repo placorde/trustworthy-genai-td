@@ -1,0 +1,88 @@
+{
+ "L3_panel_by_level": {
+  "L1": {
+   "correct": 10,
+   "abstain": 0,
+   "wrong": 0,
+   "not_correct": []
+  },
+  "L2": {
+   "correct": 2,
+   "abstain": 2,
+   "wrong": 0,
+   "not_correct": [
+    "C02 abstain",
+    "C11 abstain"
+   ]
+  },
+  "L3": {
+   "correct": 5,
+   "abstain": 1,
+   "wrong": 0,
+   "not_correct": [
+    "C17 abstain"
+   ]
+  }
+ },
+ "L1": {
+  "members": [
+   "openrouter:cohere/north-mini-code:free",
+   "openrouter:dots-studio/dots-3-note-preview:free",
+   "groq:openai/gpt-oss-20b"
+  ],
+  "cases": [
+   "C01",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C20",
+   "C03",
+   "C12",
+   "C13",
+   "C14"
+  ],
+  "correct": 10,
+  "abstain": 0,
+  "wrong": 0,
+  "not_correct": []
+ },
+ "L2": {
+  "members": [
+   "groq:openai/gpt-oss-120b",
+   "groq:qwen/qwen3.8-27b",
+   "openrouter:dots-studio/dots-3-note-preview:free"
+  ],
+  "cases": [
+   "C02",
+   "C08",
+   "C09",
+   "C11"
+  ],
+  "correct": 4,
+  "abstain": 0,
+  "wrong": 0,
+  "not_correct": []
+ },
+ "L3": {
+  "members": [
+   "groq:openai/gpt-oss-20b",
+   "groq:openai/gpt-oss-120b",
+   "openrouter:dots-studio/dots-3-note-preview:free"
+  ],
+  "cases": [
+   "C10",
+   "C15",
+   "C16",
+   "C17",
+   "C18",
+   "C19"
+  ],
+  "correct": 5,
+  "abstain": 1,
+  "wrong": 0,
+  "not_correct": [
+   "C17 abstain"
+  ]
+ }
+}
