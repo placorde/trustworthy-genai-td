@@ -624,20 +624,27 @@ class Orchestrateur:
         families, and look in your traces for a case where several models agree
         on a wrong value.
         """
-        # default answer : in case of no consensus
-        largest_count = 0
-        ans = {"consensus": False, "value": None, "votes": largest_count, "models": []}
-        
-        # ask every model the question : 
-        for question in traces_question :
+        n = len(traces_question)
+        if n // 2 >= k or k > n:
+            raise ValueError(f"k must be a strict majority for n={n}, got {k}")
 
-        
-        # KEY_ENV = {"groq": "GROQ_API_KEY", "openrouter": "OPENROUTER_API_KEY"}
+        seen = set()
+        ballots = {}
+        for proposal in traces_question:
+            member = (proposal.provider, proposal.model_requested)
+            if member in seen:
+                raise ValueError(f"Duplicate panel member: {member[0]}:{member[1]}")
+            seen.add(member)
 
-        # interroger_tous(self, case: dict) -> list:
+            if proposal.verdict == "executed" and proposal.value is not None:
+                ballots.setdefault(proposal.value, []).append(f"{member[0]}:{member[1]}")
 
-
-        # raise NotImplementedError("vote_k_sur_n: to implement in TD 2 (see the procedure in the docstring).")
+        value = max(ballots, key=lambda value: len(ballots[value]), default=None)
+        models = ballots.get(value, [])
+        votes = len(models)
+        if votes >= k:
+            return {"consensus": True, "value": value, "votes": votes, "models": models}
+        return {"consensus": False, "value": None, "votes": votes, "models": []}
 
 
 # ==========================================================================
