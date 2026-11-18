@@ -5,13 +5,13 @@ Imports choose() from the unmodified kit-td1/atelier-routage.py and runs one req
   A. an available subscription (cash 0, allocation > 0) and an exhausted free route that refills
      before the deadline (cash 0, allocation 0, reset 30 min < deadline 120 min);
   B. the same, with the subscription unavailable and no reset.
-Writes routing/priority-check.jsonl. Standard library only.
+Writes td2/routing/priority-check.jsonl. Standard library only.
 """
 import importlib.util
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("kit_routage", ROOT / "kit-td1" / "atelier-routage.py")
 kit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(kit)

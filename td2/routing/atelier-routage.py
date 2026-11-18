@@ -10,8 +10,8 @@ Routing follows the four factors of the TD 2 lecture, in this order:
 then "filter then cheapest".
 RESOURCES are the five TD 1 models on their free routes, the billed route of gpt-oss-120b and the
 L3 quorum panel (no single model is correct on every L3 cell in TD 1). A resource's level is the
-highest difficulty on which it was correct on every TD 1 cell (routing/family-rates-td1.json); the
-panel's level comes from its replay on the TD 1 traces (routing/quorum-check-td1.json). Every
+highest difficulty on which it was correct on every TD 1 cell (td2/routing/family-rates-td1.json); the
+panel's level comes from its replay on the TD 1 traces (td2/routing/quorum-check-td1.json). Every
 reason string cites those TD 1 cells. Costs are USD excluding tax per request (dated billed price x
 median TD 1 tokens). Quota availability is supplied as a scenario, not measured from a provider.
 """

@@ -100,9 +100,9 @@ case the two models reach the same value by different wrong SQL.
   ranking.
 - **Prompt.** Unchanged during the session; no second experiment was started.
 - **Models and pack.** The five proposed models of 14 October were used with the parameters of
-  [`kit-td1/modeles-autorises.json`](../kit-td1/modeles-autorises.json); no replacement model. The batches ran
+  [`kit-td1/modeles-autorises.json`](../../kit-td1/modeles-autorises.json); no replacement model. The batches ran
   with the kit of pack `2026-10-14-students-1`; pack `2026-10-18-students-1` has the same code, data,
-  questions and selection, and its copy is in [`kit-td1/`](../kit-td1/), from which the offline replay in the
+  questions and selection, and its copy is in [`kit-td1/`](../../kit-td1/), from which the offline replay in the
   README reproduces every verdict.
 
 ## Assessment evidence
