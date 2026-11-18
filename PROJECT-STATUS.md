@@ -1,6 +1,7 @@
 # Project status --- DIA3-G5
 
-Updated 23 October 2026, pack `2026-10-18-students-1`.
+Updated 18 November 2026, pack `2026-10-18-students-1`. Since TD2 the repository is grouped by session:
+TD1 files in [`td1/`](td1/README.md), TD2 files in [`td2/`](td2/README.md); `kit-td1/` stays at the root.
 
 **How the mark works.** Sub-group mark = the nine session outcomes (R1-R3, Q1-Q3, C1-C3, each 0/1/2) out of
 18, brought to 20. Final mark = 70 % sub-group mark + 30 % mean of the three individual Moodle quizzes
@@ -36,18 +37,23 @@ Results to reuse: gpt-oss-120b 19/20, gpt-oss-20b 17/20, Qwen 15/20, Dots 13/20,
 model is right on all period and product questions; 24 of 25 failures break the completed-age convention.
 Shared wrong values: C02 = 0 (gpt-oss-20b, Cohere), C19 = 71640 (Cohere, Dots).
 
-## TD2 --- 18 November --- vote and route (to do; hand-in by Sunday 22 November)
+## TD2 --- 18 November --- vote and route (done; hand-in by Sunday 22 November)
 
-No new model call: everything runs on `traces-td1.csv`. The kit code is already in `kit-td1/`.
+No new model call: everything runs on `td1/traces-td1.csv`. Report:
+[`td2/reports/td2.md`](td2/reports/td2.md).
 
-| Step | To do | Marked by |
+| Step | Status | Marked by |
 |---|---|---|
-| Prepare | Designate who reads `kit-td1/atelier-vote.py` and the routing worksheet before the session; operators note their allowance before any optional call | --- |
-| 1. k-of-n vote | Write `Orchestrateur.vote_k_sur_n` in `kit-td1/skeleton-multi-llm-en.py` (only executed values vote; errors stay in n; strict majority `n//2 < k <= n`; duplicate pair refused; abstain without inventing a value). Run `atelier-vote.py` (4 synthetic examples) then `--traces traces-td1.csv --case Cxx` on the 20 questions; table of the 20 decisions (consensus or abstention, value, votes, agreement with the reference) | Q1: show an abstention |
-| 2. Wrong consensus | Use C02 or C19: check what the fixed panel (gpt-oss-120b, Cohere, Qwen, 2 of 3) actually returns, explain the shared error from the SQL, and the check that would catch it; DEMO-VOTE synthetic case as fallback, labelled as such | Q2 |
-| 3. Routing rule | One page from the kit's `templates/routing-rule-en.md`: per family, the cheapest model correct on it in our table, the check according to the cost of an error (dashboard, figure shown to a customer, amount paid out), the fallback; each line cites TD1 cells. Run `atelier-routage.py` before and after adapting `RESOURCES` and `choose` | Q3 |
+| 1. k-of-n vote (pair A: Raphaël, Florentin) | Done: `Orchestrateur.vote_k_sur_n` in `kit-td1/skeleton-multi-llm-en.py`; four synthetic examples; 20-question table, fixed 2-of-3: 16 correct, 0 wrong, 4 abstentions; 3-of-5: 15 correct, 0 wrong, 5 abstentions | Q1: show an abstention |
+| 2. Wrong consensus (pair B: Matéo, Thomas) | Done: C02, gpt-oss-20b and Cohere both return 0 (reference 590320); faulty SQL clauses and delta query in [`td2/wrong-consensus/`](td2/wrong-consensus/case-C02.md); C19 found, not analysed | Q2 |
+| 3. Routing rule (pair C: Christophe, Pierre-Louis, Robin) | Done: TD1 rates per family and level, one-page rule, adapted `RESOURCES` and `choose`, simulator outputs before and after, priority analysis in [`td2/routing/`](td2/routing/routing-rule-td2.md) | Q3 |
+| Internal cross-review | Done: pair B reviewed A and C, pair C reviewed A and B, in [`td2/cross-review/`](td2/cross-review/); all figures reproduced | --- |
 | Quiz | Individual, 17:45-18:00, on the TD2 lecture and lab | 30 % (with TD1, TD3) |
-| Hand-in | `reports/td2.md`, vote tests (`templates/voting-tests-en.csv`), outputs saved; new Moodle entry with the TD2 commit | --- |
+| Hand-in | `td2/reports/td2.md` complete; vote contract tests in `td2/cross-review/check-pair-a-output.md` and `check-pairs-a-b-output.md` (no separate `voting-tests-en.csv`); to do: new Moodle entry with the TD2 commit | --- |
+
+Open points from the cross-reviews (not blocking): C17 missing from pair A's "Changes" list, C19 not
+analysed, version numbers on the voting policy and the routing rule, the L3 panel relies on one provider
+(Groq). Branch `td2-benchmarking-A` must not be merged: its content is already in `master`.
 
 ## TD3 --- 11 December --- quantify and decide (to do; hand-in by Sunday 13 December)
 
