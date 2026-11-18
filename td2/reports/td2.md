@@ -76,6 +76,10 @@ The fixed panel uses GPT-OSS 120B (Groq), North Mini Code (OpenRouter), and Qwen
 - **C20**. For 2-of-3, GPT-OSS 120B, North Mini Code, Qwen 27B reach 2 for 1106090. For 3-of-5, GPT-OSS 120B, North Mini Code, Qwen 27B, GPT-OSS 20B, Dots 3 Note reach 3 for 1106090. GPT-OSS 120B 1106090 (`correct`), North Mini Code 1106090 (`correct`), Qwen 27B 1106090 (`correct`), GPT-OSS 20B 1106090 (`correct`), Dots 3 Note 1106090 (`correct`).
 
 Code: `Orchestrateur.vote_k_sur_n` in [`kit-td1/skeleton-multi-llm-en.py`](../../kit-td1/skeleton-multi-llm-en.py) (from branch `td2-benchmarking-A`).
+Driver that calls it on the twenty questions and the vote tests: [`td2/vote/vote_driver.py`](../vote/vote_driver.py)
+(`python td2/vote/vote_driver.py`). It regenerates the table above ([`vote-table-td1.md`](../vote/vote-table-td1.md), identical
+on all 20 rows) and writes [`voting-tests-en.csv`](../vote/voting-tests-en.csv): 14 tests (the four synthetic examples, duplicate
+route, thresholds, unavailable members, invalid SQL on C17, C02), 14 pass. Added at the cross-review.
 
 ## Step 2 --- Wrong consensus (pair B)
 
