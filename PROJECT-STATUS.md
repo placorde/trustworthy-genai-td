@@ -49,7 +49,7 @@ No new model call: everything runs on `td1/traces-td1.csv`. Report:
 | 3. Routing rule (pair C: Christophe, Pierre-Louis, Robin) | Done: TD1 rates per family and level, one-page rule, adapted `RESOURCES` and `choose`, simulator outputs before and after, priority analysis in [`td2/routing/`](td2/routing/routing-rule-td2.md) | Q3 |
 | Internal cross-review | Done: pair B reviewed A and C, pair C reviewed A and B, in [`td2/cross-review/`](td2/cross-review/); all figures reproduced | --- |
 | Quiz | Individual, 17:45-18:00, on the TD2 lecture and lab | 30 % (with TD1, TD3) |
-| Hand-in | `td2/reports/td2.md` complete; vote contract tests in `td2/cross-review/check-pair-a-output.md` and `check-pairs-a-b-output.md` (no separate `voting-tests-en.csv`); to do: new Moodle entry with the TD2 commit | --- |
+| Hand-in | `td2/reports/td2.md` complete; vote tests in [`td2/vote/voting-tests-en.csv`](td2/vote/voting-tests-en.csv) (14/14 pass) and the driver `td2/vote/vote_driver.py` that rebuilds the 20-question table; to do: new Moodle entry with the TD2 commit | --- |
 
 Open points from the cross-reviews (not blocking): C17 missing from pair A's "Changes" list, C19 not
 analysed, version numbers on the voting policy and the routing rule, the L3 panel relies on one provider

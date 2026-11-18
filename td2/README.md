@@ -14,6 +14,7 @@ The sub-group split into three pairs. Report: [`reports/td2.md`](reports/td2.md)
 | Path | Content |
 |---|---|
 | `reports/td2.md` | TD2 report: the three steps, simulator outputs, priority analysis, limits |
+| `vote/vote_driver.py` → `vote-table-td1.md`, `voting-tests-en.csv` | Pair A: driver calling `vote_k_sur_n` on the 20 questions (2-of-3 and 3-of-5) and the 14 vote tests |
 | `wrong-consensus/case-C02.md` | Pair B: identification, quorum verdict, SQL diagnosis, delta query, consequence for checking |
 | `wrong-consensus/*.sql`, `scan.py`, `run_sql.py` | The two wrong queries, the reference, the delta query; scan of shared wrong values; read-only SQL runner |
 | `routing/routing-rule-td2.md` | Pair C: the one-page routing rule (machine form `routing-rule.json`) |
@@ -30,6 +31,7 @@ The sub-group split into three pairs. Report: [`reports/td2.md`](reports/td2.md)
 From the repository root, offline, no key needed:
 
 ```powershell
+python td2/vote/vote_driver.py
 python td2/wrong-consensus/scan.py
 python td2/wrong-consensus/scan.py C02
 python td2/wrong-consensus/run_sql.py td2/wrong-consensus/delta.sql
