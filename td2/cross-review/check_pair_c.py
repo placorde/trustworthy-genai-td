@@ -1,7 +1,7 @@
 """TD2 cross-review by pair B: recompute pair C's numbers independently from the raw traces.
 
 Run from the repository root (no network, standard library only):
-    python cross-review/check_pair_c.py
+    python td2/cross-review/check_pair_c.py
 
 Pair C computes its rates from `model-question-comparison-en.csv`. This script starts again from
 `traces-td1.csv` (last attempt of each model per question, latest `date_utc`) and recomputes:
@@ -45,8 +45,8 @@ FIRST_AND_DASHBOARD = {"F1": ("cohere/north-mini-code:free", "none"), "F3": ("co
 
 
 def main():
-    rows = list(csv.DictReader(open("traces-td1.csv", encoding="utf-8")))
-    refs = {r["case_id"]: int(r["revenue_cents"]) for r in csv.DictReader(open("reference-td1.csv", encoding="utf-8"))}
+    rows = list(csv.DictReader(open("td1/traces-td1.csv", encoding="utf-8")))
+    refs = {r["case_id"]: int(r["revenue_cents"]) for r in csv.DictReader(open("td1/reference-td1.csv", encoding="utf-8"))}
     last = {}
     for r in rows:
         key = (r["case_id"], r["model_requested"])

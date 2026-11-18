@@ -3,7 +3,7 @@
 
 Run from the repository root (needs git and the branches fetched; standard library only):
     git fetch origin
-    python cross-review/check_pairs_a_b.py
+    python td2/cross-review/check_pairs_a_b.py
 
 Pair A's code and report are read from origin/td2-benchmarking-A, pair B's files from
 origin/td2-wrong-consensus-b (git show), without merging them. Every number is recomputed from
@@ -23,7 +23,7 @@ from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 BRANCH_A = "origin/td2-benchmarking-A"
 BRANCH_B = "origin/td2-wrong-consensus-b"
 DB = ROOT / "kit-td1" / "data" / "boutique.sqlite"
@@ -46,7 +46,7 @@ def check(label, ok, detail=""):
 
 def final_attempts():
     last = {}
-    for r in csv.DictReader(open(ROOT / "traces-td1.csv", encoding="utf-8")):
+    for r in csv.DictReader(open(ROOT / "td1" / "traces-td1.csv", encoding="utf-8")):
         key = (r["provider"], r["model_requested"], r["case_id"])
         if key not in last or int(r["attempts"]) > int(last[key]["attempts"]):
             last[key] = r
@@ -242,13 +242,13 @@ def pair_b_on_c(last, ref):
 
 def main():
     last = final_attempts()
-    ref = {r["case_id"]: int(r["revenue_cents"]) for r in csv.DictReader(open(ROOT / "reference-td1.csv", encoding="utf-8"))}
+    ref = {r["case_id"]: int(r["revenue_cents"]) for r in csv.DictReader(open(ROOT / "td1" / "reference-td1.csv", encoding="utf-8"))}
     say("# Cross-review by pair C --- raw output of `cross-review/check_pairs_a_b.py`")
     say()
     pair_a(last, ref)
     pair_b(last, ref)
     pair_b_on_c(last, ref)
-    (ROOT / "cross-review" / "check-pairs-a-b-output.md").write_text("\n".join(OUT) + "\n", encoding="utf-8")
+    (ROOT / "td2" / "cross-review" / "check-pairs-a-b-output.md").write_text("\n".join(OUT) + "\n", encoding="utf-8")
     print("\n".join(OUT))
 
 

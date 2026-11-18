@@ -22,6 +22,8 @@ The sub-group split into three pairs. Report: [`reports/td2.md`](reports/td2.md)
 | `routing/atelier-routage.py` | Kit simulator adapted to our rule (`RESOURCES` and `choose`); the kit file stays byte-identical |
 | `routing/simulator-before.jsonl`, `simulator-after.jsonl` | Simulator outputs before (kit rule) and after (our rule) |
 | `routing/priority_check.py` → `priority-check.jsonl` | The kit's `choose` on the subscription-versus-wait case |
+| `cross-review/cross-review-td2.md` | Internal cross-review by pair B of pairs A and C (scripts `check_pair_a.py`, `check_pair_c.py`, outputs `check-pair-*-output.md`) |
+| `cross-review/cross-review-pair-c.md` | Internal cross-review by pair C of pairs A and B, and pair C's answer to pair B (script `check_pairs_a_b.py`, output `check-pairs-a-b-output.md`) |
 
 ## Reproducing
 
@@ -36,4 +38,13 @@ python td2/routing/quorum_check.py
 python kit-td1/atelier-routage.py > td2/routing/simulator-before.jsonl
 python td2/routing/atelier-routage.py > td2/routing/simulator-after.jsonl
 python td2/routing/priority_check.py
+python td2/cross-review/check_pair_a.py
+python td2/cross-review/check_pair_c.py
+git fetch origin
+python td2/cross-review/check_pairs_a_b.py
 ```
+
+The cross-review files describe the branches as they were reviewed (before the files were grouped
+into `td1/` and `td2/`); their scripts have been updated to the new paths and give the same output.
+`check_pairs_a_b.py` reads pairs A and B from their branches (`origin/td2-benchmarking-A`,
+`origin/td2-wrong-consensus-b`).

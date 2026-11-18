@@ -1,7 +1,7 @@
 """TD2 cross-review by pair B: check pair A's `vote_k_sur_n` and its 20-question table.
 
 Run from the repository root (no network, standard library only):
-    python cross-review/check_pair_a.py --skeleton kit-td1/skeleton-multi-llm-en.py --report reports/td2.md
+    python td2/cross-review/check_pair_a.py --skeleton kit-td1/skeleton-multi-llm-en.py --report td2/reports/td2.md
 
 What it does:
 1. contract tests on pair A's method (threshold, duplicates, unavailable members, abstention);
@@ -127,9 +127,9 @@ def report_table(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--skeleton", default="kit-td1/skeleton-multi-llm-en.py")
-    ap.add_argument("--report", default="reports/td2.md")
-    ap.add_argument("--traces", default="traces-td1.csv")
-    ap.add_argument("--reference", default="reference-td1.csv")
+    ap.add_argument("--report", default="td2/reports/td2.md")
+    ap.add_argument("--traces", default="td1/traces-td1.csv")
+    ap.add_argument("--reference", default="td1/reference-td1.csv")
     args = ap.parse_args()
 
     vote = load_vote(args.skeleton)

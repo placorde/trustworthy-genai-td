@@ -190,3 +190,12 @@ python kit-td1/atelier-routage.py > td2/routing/simulator-before.jsonl
 python td2/routing/atelier-routage.py > td2/routing/simulator-after.jsonl
 python td2/routing/priority_check.py
 ```
+
+## Internal cross-review
+
+Each pair's work was replayed and recomputed independently by another pair, from the TD1 traces:
+- by pair B, of pairs A and C: [`../cross-review/cross-review-td2.md`](../cross-review/cross-review-td2.md);
+- by pair C, of pairs A and B, with pair C's answer to pair B's remarks:
+  [`../cross-review/cross-review-pair-c.md`](../cross-review/cross-review-pair-c.md).
+
+Both reviews find the three steps correct and reproducible; their remaining remarks are listed there.

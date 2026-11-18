@@ -16,7 +16,7 @@ Script and raw output: [`check_pairs_a_b.py`](check_pairs_a_b.py) →
 
 ```bash
 git fetch origin
-python cross-review/check_pairs_a_b.py
+python td2/cross-review/check_pairs_a_b.py
 ```
 
 ## Pair A --- the k-of-n vote
