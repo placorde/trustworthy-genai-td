@@ -1,0 +1,14 @@
+{
+ "source": "DIA3-G5 TD2 step 3 (pair C). Levels and rates: routing/family-rates-td1.json; panels: routing/quorum-check-td1.md",
+ "difficulty": {"F1": 1, "F3": 1, "F2": 2, "F2b": 3, "F4": 3},
+ "retry": {"max_attempts": 10, "interval_minutes": 1},
+ "panels": {
+  "L1": {"members": ["openrouter:cohere/north-mini-code:free", "openrouter:dots-studio/dots-3-note-preview:free", "groq:openai/gpt-oss-20b"]},
+  "L2": {"members": ["groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b", "openrouter:dots-studio/dots-3-note-preview:free"]},
+  "L3": {"members": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "openrouter:dots-studio/dots-3-note-preview:free"]}
+ },
+ "paid_routes": [
+  {"id": "openrouter-gpt-oss-120b-billed", "model": "openrouter:openai/gpt-oss-120b", "evidence_model": "groq:openai/gpt-oss-120b",
+   "note": "same model billed on OpenRouter (five-model-summary-en.csv, paid_route_same_model); cash = dated price x median TD1 tokens"}
+ ]
+}
