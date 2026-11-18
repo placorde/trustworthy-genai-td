@@ -199,3 +199,70 @@ Each pair's work was replayed and recomputed independently by another pair, from
   [`../cross-review/cross-review-pair-c.md`](../cross-review/cross-review-pair-c.md).
 
 Both reviews find the three steps correct and reproducible; their remaining remarks are listed there.
+
+## Contributions
+
+Seven members: three pairs, pair C as a group of three (assignment: groups of three beyond six members).
+
+| Pair | Members | Step | Work and evidence |
+|---|---|---|---|
+| A | Raphaël, Florentin | 1. k-of-n vote | `vote_k_sur_n` in `kit-td1/skeleton-multi-llm-en.py`, four synthetic examples, 20-question table 2-of-3 against 3-of-5 (step 1 above) |
+| B | Matéo, Thomas | 2. Wrong consensus | C02 found in the 100 cells, faulty SQL clauses, delta query, votes counted by hand ([`../wrong-consensus/`](../wrong-consensus/case-C02.md)); cross-review of pairs A and C |
+| C | Christophe, Pierre-Louis, Robin | 3. Routing rule | TD1 rates per family and level, one-page rule, adapted simulator, priority analysis ([`../routing/`](../routing/routing-rule-td2.md)); cross-review of pairs A and B |
+
+Written cross-reviews: pair B reviewed pairs A and C, pair C reviewed pairs A and B (section above).
+
+## Successes and failures
+
+**Successes**
+- The vote abstains rather than inventing a value: on the 20 questions, 0 wrong consensus for both the
+  fixed 2-of-3 panel (16 correct, 4 abstentions) and 3-of-5 (15 correct, 5 abstentions).
+- A real wrong consensus is proven in SQL: on C02, gpt-oss-20b and Cohere both return 0 for two
+  different bugs; the delta query finds the 6 customers aged 25 that both miss (590320 cents).
+- Every model choice of the routing rule cites its TD1 cells, and every check matches the cost of an
+  error (dashboard, customer figure, payout).
+- The two cross-reviews recomputed each pair's numbers from the TD1 traces with their own code: all
+  figures match and every output is reproducible.
+
+**Failures and open points**
+- Pair A's branch `td2-benchmarking-A` had no common history with `master` and would have deleted the
+  TD1 files; its two changes were carried over by hand. It must not be merged.
+- C17 is missing from pair A's "Changes" list, and C19 (71640 shared by Cohere and Dots) is found but
+  not analysed.
+- No single model is correct on all six hardest questions (C10, C15-C19); the routing rule needs a
+  2-of-3 panel there, and that panel holds two gpt-oss models on the same provider (Groq).
+
+## Causes and hypotheses
+
+- 24 of the 25 TD1 failures break the completed-age convention: age questions are the weak point of
+  every model. Hypothesis: the models compute an age from the year difference or a wrongly placed
+  date window instead of the anniversary rule given in the prompt.
+- Two models can return the same wrong value for different reasons (C02: a window shifted by 25 years,
+  and two reversed comparisons). A vote only sees the value, so a quorum cannot detect it.
+- A higher threshold (3-of-5) only adds abstentions on questions with an age filter (C02, C11, C15, C17,
+  C19): it protects against a wrong answer but does not produce the right one.
+
+## Limits
+
+Twenty questions, one sample per cell at temperature 0, one batch per model: the rates, levels and
+panels are a hypothesis for this batch, not a general error rate, a permanent ranking or a guarantee
+from quorum voting. Availability and refill times in the routing scenarios are supplied, not measured.
+The synthetic examples of step 1 and the simulator scenarios of step 3 are labelled as simulations.
+
+## Prompts
+
+No new model call in TD2. The experiment prompt is unchanged since TD1 ([`../../td1/prompts-en.md`](../../td1/prompts-en.md)).
+
+## Step 4 --- plenary note
+
+Questions where no single free model is sufficient alone in our batch: C10, C15, C16, C17, C18, C19
+(age at the order, and age combined with other filters). They need a 2-of-3 panel or the reference SQL,
+and they set the cost of checking for TD3.
+
+## Next steps (TD3)
+
+- Configuration table: cheapest single model per family, best single model, fixed 2-of-3, 3-of-5 and our
+  routing rule, with calls, tokens and API-equivalent cost (N/A with coverage for Cohere and Dots).
+- Price the check of C10 and C15-C19 (panel calls, reference SQL, human review).
+- Apply the cross-review remarks: C17 in pair A's list, analysis of C19, version numbers on the voting
+  policy and the routing rule, a provider-diverse fallback for the L3 panel.
