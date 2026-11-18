@@ -152,3 +152,21 @@ Its 135000 is exactly C001's line in the table.
 **Limits.** This is one question out of 20 in one TD1 batch. It shows that a shared wrong value can
 happen, not how often it happens. The other shared wrong value in our traces (C19, 71640, Cohere and
 Dots) has not been analysed here.
+
+## 5. Link with Lecture 2 (18 November)
+
+What we saw on C02 matches several points of this morning's lecture:
+
+| Lecture 2 idea | What C02 shows |
+|---|---|
+| Three kinds of failure: refused call (429), broken answer (query that cannot run), **wrong value** (query runs but computes the wrong result) | C02 is a **wrong value**: both queries run without error and return 0. This is the hardest kind to catch, because nothing looks broken. |
+| Mixing model families reduces the risk of a shared mistake but does not remove it | gpt-oss-20b (OpenAI family, Groq) and north-mini-code (Cohere family, OpenRouter) are different families on different providers, and they still return the same 0. |
+| A stricter threshold (higher K) gives more abstentions and does not guarantee the truth | Going from 2-of-3 to 3-of-5 turns a correct consensus into an abstention (2 votes against 2). |
+| Deterministic checks are done by code, not by a model, before trusting a vote | Our consequence (section 4): a tested reference query for "age at a date", plus simple code checks (0 on an age question, boundary customers). |
+| The same model counts as one vote, and only its last attempt is kept | I checked it: each model has a single attempt on C02, so one vote per model. |
+| A value without its SQL query is not a vote | Every value in the table comes with its SQL in `traces-td1.csv`, which is how I could find the faulty `WHERE` clauses. |
+| A new model is tested in shadow mode (logged, not voting) before joining a panel | gpt-oss-20b is right on only 1 out of 4 age questions (F2) in TD1. On age questions it should stay in shadow mode instead of voting; otherwise, with it in the 2-of-3 panel, the wrong 0 wins. |
+
+Main takeaway for me: a quorum only helps when the models make **independent** mistakes. Here they
+make two different mistakes that happen to give the same number, and the vote cannot tell the
+difference. Only a check that looks at the data itself (the reference query, the delta query) can.
